@@ -131,7 +131,7 @@ Earlier we used a loop to load data from multiple files. Here is how you do the 
 loc = "names/*.txt";
 vars = ["name","sex","births"];
 ds = datastore(loc,VariableNames=vars,TextType="string");
-ds = transform(ds, @addFilenameToData, 'IncludeInfo', true); % use helper function
+ds = transform(ds, @addYearToData, 'IncludeInfo', true); % use helper function
 names = readall(ds);
 head(names)
 ```
@@ -139,7 +139,7 @@ head(names)
 
 Helper function to extract years from the filenames
 ```
-function [data, info] = addFilenameToData(data, info)
+function [data, info] = addYearToData(data, info)
     [~, filename, ~] = fileparts(info.Filename);
     data.year(:, 1) = str2double(erase(filename,"yob"));
 end
